@@ -104,7 +104,7 @@ const ListeAbsence = () => {
                             filtredAbsense.employers.map((employer,index) => (
                                 <motion.tr
                                     key={`id-${employer.name}-${new Date().getTime()}-dd`}
-                                    className={`group transition-all duration-300 ${getStatusStyle(employer.status)}`}
+                                    className={`group transition-all duration-300 ${getStatusStyle(employer?.status)}`}
                                     variants={rowVariants}
                                     initial="hidden"
                                     animate="visible"
@@ -112,7 +112,7 @@ const ListeAbsence = () => {
                                 >
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">
-                                            <div className={`h-10 w-10 rounded-lg bg-slate-800/50 flex items-center justify-center shadow-lg ${employer.status.toLowerCase() === 'congis' ? 'bg-gradient-to-br from-amber-950 to-orange-900' : ''}`}>
+                                            <div className={`h-10 w-10 rounded-lg bg-slate-800/50 flex items-center justify-center shadow-lg ${employer?.status.toLowerCase() === 'congis' ? 'bg-gradient-to-br from-amber-950 to-orange-900' : ''}`}>
                                                 <span className={`font-medium ${employer.status.toLowerCase() === 'congis' ? 'text-amber-300' : 'text-slate-300'}`}>
                                                     {employer.name?.charAt(0)}
                                                 </span>
@@ -126,18 +126,18 @@ const ListeAbsence = () => {
                                         <div className="flex items-center gap-2">
                                             <Clock size={16} className="text-slate-400" />
                                             <span className="text-slate-300">
-                                                {getNameOfResponsable(employer.responsibleUserId, users)}
+                                                {getNameOfResponsable(employer?.responsibleUserId, users)}
                                             </span>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4">
-                                        <span className={`px-4 py-1.5 rounded-full text-xs font-medium ${getStatusBadgeStyle(employer.status)}`}>
-                                            {employer.status}
+                                        <span className={`px-4 py-1.5 rounded-full text-xs font-medium ${getStatusBadgeStyle(employer?.status)}`}>
+                                            {employer?.status}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-2">
-                                            {employer.status.toLowerCase() === 'congis' ? (
+                                            {employer?.status.toLowerCase() === 'congis' ? (
                                                 <span className="px-3 py-1 rounded-full text-xs font-medium bg-amber-500/20 text-amber-400 border border-amber-500/30">
                                                     On Congis Leave
                                                 </span>
@@ -146,8 +146,8 @@ const ListeAbsence = () => {
                                                     <button className="p-2 rounded-lg bg-slate-700/30 hover:bg-slate-700/50 transition-colors duration-200 text-slate-300 hover:text-slate-100">
                                                         <Eye size={18} />
                                                     </button>
-                                                    {isResponsable(employer.responsibleUserId, user) && (
-                                                        <button className={`p-2 rounded-lg transition-colors duration-200 ${employer.status.toLowerCase() === 'congis'
+                                                    {isResponsable(employer?.responsibleUserId, user) && (
+                                                        <button className={`p-2 rounded-lg transition-colors duration-200 ${employer?.status.toLowerCase() === 'congis'
                                                             ? 'bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 hover:text-amber-300'
                                                             : 'bg-violet-500/20 hover:bg-violet-500/30 text-violet-400 hover:text-violet-300'
                                                             }`}>

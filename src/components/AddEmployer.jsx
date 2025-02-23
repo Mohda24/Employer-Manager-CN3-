@@ -41,7 +41,7 @@ export default function AddEmployer({ isVisible, setAddFormVisible }) {
     return (
         <>
             <div
-                className={`max-w-lg min-w-md mx-auto bg-gray-900 p-8 rounded-2xl shadow-2xl border border-gray-800 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 duration-200 transition-all ${
+                className={`max-w-lg min-w-md mx-auto bg-gray-900  p-8 rounded-2xl shadow-2xl border border-gray-800 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 duration-200 transition-all ${
                     isVisible ? "visible opacity-100" : "invisible opacity-0"
                 }`}
             >

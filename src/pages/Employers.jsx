@@ -4,7 +4,7 @@ import AddEmployer from '../components/AddEmployer';
 import { UserPlus, Trash2, UserPen } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { removeEmployer } from '../app/features/EmployersSlice';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 function Employers() {
     const dispatch = useDispatch();
@@ -17,6 +17,14 @@ function Employers() {
             dispatch(removeEmployer(id));
         }
     };
+    // Handle Effect Side
+    useEffect(() => {
+        if(isVisible){
+            document.body.style.overflow='hidden';}
+        else{
+            document.body.style.overflow='auto';
+        }
+    },[isVisible])
 
     return (
         <div className="min-h-screen bg-gray-900 text-white p-4">
@@ -81,7 +89,7 @@ function Employers() {
             </button>
 
             {/* Add Employer Form Visibility */}
-            {isVisible && <AddEmployer onClose={() => setAddFormVisible(false)} />}
+            <AddEmployer isVisible={isVisible} setAddFormVisible={setAddFormVisible} />
         </div>
     );
 }
