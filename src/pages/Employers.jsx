@@ -1,10 +1,9 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import AddEmployer from '../components/AddEmployer';
 import { UserPlus, Trash2, UserPen } from 'lucide-react';
-import { useDispatch } from 'react-redux';
 import { removeEmployer } from '../app/features/EmployersSlice';
-import { useState,useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function Employers() {
     const dispatch = useDispatch();
@@ -17,23 +16,37 @@ function Employers() {
             dispatch(removeEmployer(id));
         }
     };
-    // Handle Effect Side
+
+    // Handle body scroll lock
     useEffect(() => {
-        if(isVisible){
-            document.body.style.overflow='hidden';}
-        else{
-            document.body.style.overflow='auto';
-        }
-    },[isVisible])
+        document.body.style.overflow = isVisible ? 'hidden' : 'auto';
+    }, [isVisible]);
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white p-4">
+        <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            exit={{ opacity: 0 }} 
+            transition={{ duration: 0.5 }}
+            className="min-h-screen bg-gray-900 text-white p-4"
+        >
             {/* Header */}
-            <h1 className="text-3xl font-bold mb-6">Employers</h1>
+            <motion.h1 
+                initial={{ y: -20, opacity: 0 }} 
+                animate={{ y: 0, opacity: 1 }} 
+                transition={{ duration: 0.5 }}
+                className="text-3xl font-bold mb-6"
+            >
+                Employers
+            </motion.h1>
 
             {/* Table Container */}
-            <div className="bg-gray-800 rounded-lg shadow-md p-6 overflow-x-auto">
-                {/* Table Header */}
+            <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }} 
+                animate={{ opacity: 1, scale: 1 }} 
+                transition={{ duration: 0.5 }}
+                className="bg-gray-800 rounded-lg shadow-md p-6 overflow-x-auto"
+            >
                 <table className="w-full text-left border-collapse">
                     <thead>
                         <tr className="border-b border-gray-700">
@@ -45,10 +58,15 @@ function Employers() {
                             <th className="py-2 px-4">Actions</th>
                         </tr>
                     </thead>
-                    {/* Table Body */}
                     <tbody>
                         {employees.map((employee, index) => (
-                            <tr key={employee.id} className="border-b border-gray-700">
+                            <motion.tr 
+                                key={employee.id}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.3, delay: index * 0.1 }}
+                                className="border-b border-gray-700"
+                            >
                                 <td className="py-2 px-4">{index + 1}</td>
                                 <td className="py-2 px-4">{employee.name}</td>
                                 <td className="py-2 px-4">{employee.position}</td>
@@ -60,9 +78,7 @@ function Employers() {
                                 <td className="py-2 px-4">{employee.salary}</td>
                                 <td className="py-2 px-4 flex space-x-2">
                                     {/* Edit Button */}
-                                    <button
-                                        className="text-yellow-400 hover:text-yellow-500 transition-colors"
-                                    >
+                                    <button className="text-yellow-400 hover:text-yellow-500 transition-colors">
                                         <UserPen size={18} />
                                     </button>
                                     {/* Delete Button */}
@@ -73,24 +89,33 @@ function Employers() {
                                         <Trash2 size={18} />
                                     </button>
                                 </td>
-                            </tr>
+                            </motion.tr>
                         ))}
                     </tbody>
                 </table>
-            </div>
+            </motion.div>
 
             {/* Add Employer Button */}
-            <button
+            <motion.button
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.3 }}
                 onClick={() => setAddFormVisible(true)}
                 className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg flex items-center justify-center transition-all duration-300"
             >
                 <UserPlus size={20} className="mr-2" />
                 Add Employer
-            </button>
+            </motion.button>
 
-            {/* Add Employer Form Visibility */}
-            <AddEmployer isVisible={isVisible} setAddFormVisible={setAddFormVisible} />
-        </div>
+            {/* Add Employer Form */}
+            <AnimatePresence>
+                {isVisible && (
+                    <AddEmployer isVisible={isVisible} setAddFormVisible={setAddFormVisible} />
+                )}
+            </AnimatePresence>
+        </motion.div>
     );
 }
 

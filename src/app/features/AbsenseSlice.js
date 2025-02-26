@@ -20,7 +20,9 @@ const AbsenseSlice = createSlice({
             date:currentDate,
             employers:getEmployers(absences,currentDate)
         },
-        selectedDate:new Date().toISOString().split('T')[0]
+        selectedDate:new Date().toISOString().split('T')[0],
+        modifyAbsense:null,
+        Historique:getFromLocalStorage("Historique")||[]
     } ,
     reducers:{
         addAbsence:(state,action)=>{
@@ -38,8 +40,16 @@ const AbsenseSlice = createSlice({
                 date:action.payload,
                 employers:getEmployers(state.absences,action.payload)
             }
+        },
+        modifyAbsense:(state,action)=>{
+            const absense=state.absences.filter((absense)=>absense.id===action.payload);
+            state.modifyAbsense=absense
+        },
+        setHistorique:(state,action)=>{
+            state.Historique.push(action.payload)
+            setFromLocaleStorege("Historique",state.Historique)
         }
     }
 });
 export default AbsenseSlice.reducer;
-export const {addAbsence,removeAbsence,filterAbsence}=AbsenseSlice.actions
+export const {addAbsence,removeAbsence,filterAbsence,setHistorique}=AbsenseSlice.actions

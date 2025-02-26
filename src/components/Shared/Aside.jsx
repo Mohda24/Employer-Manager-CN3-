@@ -82,6 +82,24 @@ function Aside() {
                     <Users className="w-5 h-5" />
                     <span>Gestion des Employés</span>
                 </NavLink>
+                <NavLink
+                    to="/statistique"
+                    className={({ isActive }) =>
+                        `flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 ${isActive ? "bg-blue-600 text-white " : ""}`
+                    }
+                >
+                    <Users className="w-5 h-5" />
+                    <span>Statistique</span>
+                </NavLink>
+                <NavLink
+                    to="/Historique"
+                    className={({ isActive }) =>
+                        `flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 ${isActive ? "bg-blue-600 text-white " : ""}`
+                    }
+                >
+                    <Users className="w-5 h-5" />
+                    <span>Historique</span>
+                </NavLink>
 
                 <a className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700"
                     onClick={handleLogout}
